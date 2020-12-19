@@ -130,7 +130,7 @@ for event in longpoll.listen():
                 elif text == 'Начать игру'.lower():                    
                     send_message(user_id,"Все деньги в твоих руках!",fortunka_keyboard)
                 elif text == 'Испытать удачу!'.lower():                     
-                    player = gamers[user_id]['player']
+                    player = gamers[user_id]['number']
                     from random import randint
                     gamers[user_id] = {'number' : 2,
                                        'player': randint(1,3)}
