@@ -1,1 +1,1 @@
-worker: python VK_bot_s_knopkami bogdana.py
+worker: python VK_bot_s_knopkami_bogdana.py
