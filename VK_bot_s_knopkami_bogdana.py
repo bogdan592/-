@@ -56,10 +56,12 @@ fortunka_keyboard = VkKeyboard(one_time = True)
 fortunka_keyboard.add_button('Испытать удачу!')
 fortunka_keyboard.add_line()
 fortunka_keyboard.add_button('Назад.')
-
+fortunka_keyboard.add_line()
+fortunka_keyboard.add_button('Баланс')
 
 back_keyboard = VkKeyboard(one_time = True)
 back_keyboard.add_button('Назад')
+gamer={}
 gamers={}
 # Работа с сообщениями
 longpoll = VkLongPoll(vk)
@@ -82,17 +84,33 @@ for event in longpoll.listen():
                 if gamers[user_id]['lives'] < 1:              
                       send_message(user_id,"Проигрышь,жизни кончились ಥ_ಥ", main_keyboard)
                       del gamers[user_id]
-                                     
-                elif otvet > goal:                      
-                    send_message(user_id,"Много")
+                                    
+                if otvet > goal:                      
+                    send_message(user_id,"❌Много❌")
                     gamers[user_id]['lives'] -= 1
                 elif otvet < goal:
-                    send_message(user_id,"Мало")
+                    send_message(user_id,"❌Мало❌")
                     gamers[user_id]['lives'] -= 1
                 else:
-                    send_message(user_id,"Победа!!! 🥳", main_keyboard)
+                    send_message(user_id,"✅Победа!!!✅ 🥳", main_keyboard)
                     del gamers[user_id]
-            
+                
+                def fortun (user_id,play,balance,number):                                                                                   
+                    play = gamer[user_id]['play']                         
+                    balance = gamer[user_id]['balance']  
+                    number = gamer[user_id]['number']  
+
+                    if play < number:                      
+                           send_message(user_id,"❌К сожалению ты проиграл❌.Твой баланс был обнулён",fortunka_keyboard)
+                           gamers[user_id]['balance'] = 0
+                    elif play > number:
+                           send_message(user_id,"❌К сожалению ты проиграл❌.Твой баланс был обнулён",fortunka_keyboard)
+                           gamers[user_id]['balance'] = 0
+                    else:
+                        send_message(user_id,"✅Поздравляю вы выйграли✅!!!.На ваш баланс было зачисленно 500 рублей",fortunka_keyboard)
+                    fortunka_keyboard
+                    gamer[user_id]['balance'] += 500                                                 
+                    del gamer[user_id]
             else:                    
                 if text == 'START'.lower():   
                       send_message(user_id,"Добро пожаловать",main_keyboard)  # <===
@@ -121,6 +139,8 @@ for event in longpoll.listen():
                     send_message(user_id,"Хорошо",gamer_keyboard)
                 elif text == 'Назад!'.lower():
                     send_message(user_id,"Хорошо",main_keyboard)
+                elif text == 'Баланс'.lower():                    
+                    send_message(user_id,"Ваш баланс:",fortun_keyboard)
                 elif text == 'Поиграться'.lower():                    
                     send_message(user_id,"Выбирай игру",gamer_keyboard)
                 elif text == 'Фортуна'.lower():                    
@@ -129,17 +149,12 @@ for event in longpoll.listen():
                     send_message(user_id,"В этой игре есть единственная кнопка:Разбогатеть.Шанс выйграть 50/50.Если ты проиграешь то все заработанные деньги сгорят,так что не увлекайся!Удачи!!!",fortun_keyboard)
                 elif text == 'Начать игру'.lower():                    
                     send_message(user_id,"Все деньги в твоих руках!",fortunka_keyboard)
-                elif text == 'Испытать удачу!'.lower():                     
-                    player = gamers[user_id]['number']
-                    player = gamers[user_id]['player']
-                    from random import randint
-                    gamers[user_id] = {'number' : 2,
-                                       'player': randint(1,3)}
-                elif number > player:                      
-                    send_message(user_id,"❌К сожалению ты проиграл❌")
-        
-                elif number < player:
-                    send_message(user_id,"❌К сожалению ты проиграл❌")
-                    
+                elif text == 'Испытать удачу!'.lower():                                          
+                     send_message(user_id,"Произошла неожиданная ошибка.Нажмите на любую кнопку чтобы продолжить")       
+                     from random import randint
+                     {'number' : 2,
+                      'play': randint(1,3),
+                      'balance': 0}
+                                                         
                 else:
                     send_message(user_id,"Продолжайте",main_keyboard)
