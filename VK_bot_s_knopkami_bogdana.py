@@ -82,14 +82,14 @@ for event in longpoll.listen():
                     continue
                 goal = gamers[user_id]['goal']
                 if gamers[user_id]['lives'] < 1:              
-                      send_message(user_id,"Проигрышь,жизни кончились ಥ_ಥ", main_keyboard)
+                      send_message(user_id,"Проигрышь,жизни кончились ಥ_ಥ,правильный ответ:"+str(gamers[user_id]['goal']))
                       del gamers[user_id]
                                     
                 if otvet > goal:                      
-                    send_message(user_id,"❌Много❌")
+                    send_message(user_id,"❌Много❌,осталось жизней "+str(gamers[user_id]['lives']))
                     gamers[user_id]['lives'] -= 1
                 elif otvet < goal:
-                    send_message(user_id,"❌Мало❌")
+                    send_message(user_id,"❌Мало❌,осталось жизней "+str(gamers[user_id]['lives']))
                     gamers[user_id]['lives'] -= 1
                 else:
                     send_message(user_id,"✅Победа!!!✅ 🥳", main_keyboard)
