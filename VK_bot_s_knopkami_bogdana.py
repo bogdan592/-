@@ -61,6 +61,15 @@ fortunka_keyboard.add_button('Баланс')
 
 back_keyboard = VkKeyboard(one_time = True)
 back_keyboard.add_button('Назад')
+
+number_keyboard = VkKeyboard(one_time = True)
+number_keyboard.add_button('Тяжёлая сложность')
+number_keyboard.add_line()
+number_keyboard.add_button('Средняя сложность')
+number_keyboard.add_line()
+number_keyboard.add_button('Лёгкая сложность')
+number_keyboard.add_line()
+number_keyboard.add_button('Назад')
 gamer={}
 gamers={}
 # Работа с сообщениями
@@ -92,7 +101,7 @@ for event in longpoll.listen():
                     send_message(user_id,"❌Мало❌,осталось жизней "+str(gamers[user_id]['lives']))
                     gamers[user_id]['lives'] -= 1
                 else:
-                    send_message(user_id,"✅Победа🥳!!!✅ ", main_keyboard)
+                    send_message(user_id,"✅Победа!!!✅ 🥳", main_keyboard)
                     del gamers[user_id]
                 
                 def fortun (user_id,play,balance,number):                                                                                   
@@ -118,11 +127,22 @@ for event in longpoll.listen():
                        send_message(user_id,"Bogdan",back_keyboard)
                 elif text == 'Сделать пожертвование'.lower():   
                        send_message(user_id,"Укажи номер и пароль своей карты и я спишу с неё все деньги",back_keyboard)
-                elif text == 'Угадай число'.lower():
+                elif text == 'Тяжёлая сложность'.lower():
                     from random import randint
                     gamers[user_id] = {'goal' : randint(1,8196),
                                        'lives': 15}
-                    send_message(user_id,"Угадывай число от 1 до 8196 🤔. Утебя 15 попыток!😏")
+                    send_message(user_id,"Угадывай число от 1 до 8196 🤔.У тебя 15 попыток!😏")
+                elif text == 'Средняя сложность'.lower():
+                   from random import randint
+                   gamers[user_id] = {'goal' : randint(1,4000),
+                                       'lives': 10}
+                   send_message(user_id,"Угадывай число от 1 до 4000 🤔. У тебя 10 попыток!😏")
+                elif text == 'Лёгкая сложность'.lower():
+                   from random import randint
+                   gamers[user_id] = {'goal' : randint(1,200),
+                                       'lives': 8}
+                   send_message(user_id,'Угадывай число от 1 до 200 🤔. У тебя 8 попыток!😏')
+                   
                 if text == 'узнать погоду'.lower():   
                     send_message(user_id,"ясно",back_keyboard)
                 elif text == 'Сыграть в камень ножницы бумага'.lower():   
@@ -143,6 +163,8 @@ for event in longpoll.listen():
                     send_message(user_id,"Ваш баланс:",fortun_keyboard)
                 elif text == 'Поиграться'.lower():                    
                     send_message(user_id,"Выбирай игру",gamer_keyboard)
+                elif text == 'Угадай число'.lower():                    
+                    send_message(user_id,"Выбирай сложность",number_keyboard)
                 elif text == 'Фортуна'.lower():                    
                     send_message(user_id,"Бланодаря этой игре ты можешь разбогатеть",fortun_keyboard)              
                 elif text == 'Правила'.lower():                    
