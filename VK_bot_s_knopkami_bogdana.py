@@ -92,7 +92,7 @@ for event in longpoll.listen():
                     send_message(user_id,"❌Мало❌,осталось жизней "+str(gamers[user_id]['lives']))
                     gamers[user_id]['lives'] -= 1
                 else:
-                    send_message(user_id,"✅Победа!!!✅ 🥳", main_keyboard)
+                    send_message(user_id,"✅Победа🥳!!!✅ ", main_keyboard)
                     del gamers[user_id]
                 
                 def fortun (user_id,play,balance,number):                                                                                   
