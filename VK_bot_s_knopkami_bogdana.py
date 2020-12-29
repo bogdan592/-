@@ -126,7 +126,7 @@ for event in longpoll.listen():
                 elif text == 'Об авторе'.lower():   
                        send_message(user_id,"Bogdan",back_keyboard)
                 elif text == 'Сделать пожертвование'.lower():   
-                       send_message(user_id,"Укажи номер и пароль своей карты и я спишу с неё все деньги",back_keyboard)
+                       send_message(user_id,'Если хочешь можешь отправить мне денги по этой ссылке:https://www.donationalerts.com/r/bogdan1234567434'back_keyboard)
                 elif text == 'Тяжёлая сложность'.lower():
                     from random import randint
                     gamers[user_id] = {'goal' : randint(1,8196),
@@ -180,3 +180,4 @@ for event in longpoll.listen():
                                                          
                 else:
                     send_message(user_id,"Продолжайте",main_keyboard)
+
